@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ramya-physio-dashboard
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DATABASE_URL
+        value: <your PostgreSQL URL from Render>
