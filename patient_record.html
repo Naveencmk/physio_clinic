@@ -335,7 +335,7 @@
 
     // Fetch patient records from Flask backend
     function fetchPatientRecordsFromServer() {
-        fetch('http://127.0.0.1:5001/api/treated-patients')
+        fetch('https://physio-clinic-pz4c.onrender.com/api/treated-patients')
             .then(response => response.json())
             .then(data => {
                 // Convert treated_at to dateTreated for compatibility

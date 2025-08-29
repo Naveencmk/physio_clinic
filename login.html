@@ -917,7 +917,7 @@
         loginButton.innerHTML = 'Authenticating...';
         loginButton.disabled = true;
 
-        fetch('http://127.0.0.1:5001/api/login', {
+        fetch('https://physio-clinic-pz4c.onrender.com/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ adminId, password })

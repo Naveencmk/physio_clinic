@@ -116,6 +116,9 @@ def login():
         return jsonify({"status": "success"})
     else:
         return jsonify({"status": "error", "message": "Invalid credentials"}), 401
+@app.route('/health')
+def health_check():
+    return jsonify({"status": "ok"})
 
 
 # -------------------- App Entry --------------------

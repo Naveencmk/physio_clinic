@@ -388,7 +388,7 @@
 
     // Fetch appointments from Flask backend
     function fetchAppointmentsFromServer() {
-        fetch('http://127.0.0.1:5001/api/appointments')
+        fetch('https://physio-clinic-pz4c.onrender.com/api/appointments')
             .then(response => response.json())
             .then(data => {
                 appointments = data;
@@ -483,7 +483,7 @@
 
     // Send treated patient to backend
     function sendToServer(patientData) {
-        fetch('http://127.0.0.1:5001/api/treated-patients', {
+       fetch('https://physio-clinic-pz4c.onrender.com/api/treated-patients', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
