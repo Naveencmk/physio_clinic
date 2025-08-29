@@ -34,7 +34,7 @@ class TreatedPatient(db.Model):
 
 # -------------------- Routes --------------------
 @app.route('/init-db')
-def init_db():
+def init_db_v2():
     with app.app_context():
         db.create_all()
     return jsonify({"status": "Database tables created"})
@@ -128,4 +128,5 @@ def init_db():
     with app.app_context():
         db.create_all()
     return jsonify({"status": "Database tables created"})
+
 
