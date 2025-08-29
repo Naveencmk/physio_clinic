@@ -33,6 +33,11 @@ class TreatedPatient(db.Model):
     treated_at = db.Column(db.DateTime, default=db.func.now())
 
 # -------------------- Routes --------------------
+@app.route('/init-db')
+def init_db():
+    with app.app_context():
+        db.create_all()
+    return jsonify({"status": "Database tables created"})
 
 @app.route('/api/send-message', methods=['POST'])
 def receive_message():
@@ -123,3 +128,4 @@ def init_db():
     with app.app_context():
         db.create_all()
     return jsonify({"status": "Database tables created"})
+
