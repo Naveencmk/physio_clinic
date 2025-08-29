@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# Use environment variable for database URL (Render will provide this)
+# Use Render-provided DATABASE_URL or fallback to local SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///local.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -98,32 +98,28 @@ def get_treated_patients():
         "message": p.message,
         "treated_at": p.treated_at.isoformat()
     } for p in patients])
+
 @app.route('/api/admin/delete-all', methods=['GET', 'POST'])
 def delete_all_data():
-    # db.session.query(Appointment).delete()
     db.session.query(TreatedPatient).delete()
     db.session.commit()
     return jsonify({"status": "All data deleted"})
+
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
-    print("Received:", data)
     admin_id = data.get('adminId', '').strip()
     password = data.get('password', '').strip()
 
-    # Exact match check
     if admin_id == 'ramya21' and password == '2003':
         return jsonify({"status": "success"})
     else:
         return jsonify({"status": "error", "message": "Invalid credentials"}), 401
-@app.route('/health')
-def health_check():
-    return jsonify({"status": "ok"})
 
+# -------------------- One-Time DB Init Route --------------------
 
-# -------------------- App Entry --------------------
-
-if __name__ == '__main__':
+@app.route('/init-db')
+def init_db():
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5001)
+    return jsonify({"status": "Database tables created"})
