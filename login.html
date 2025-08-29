@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramya Physio Care - Professional Physiotherapy Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .hero {
+            background: linear-gradient(135deg, #f8fdff 0%, #e6f3ff 50%, #87ceeb 100%);
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(135, 206, 235, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(70, 130, 180, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(135, 206, 235, 0.05) 0%, transparent 60%);
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.05) rotate(2deg); opacity: 0.8; }
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .floating-1 { top: 10%; left: 10%; animation-delay: 0s; font-size: 3rem; }
+        .floating-2 { top: 20%; right: 15%; animation-delay: 3s; font-size: 2.5rem; }
+        .floating-3 { bottom: 20%; left: 20%; animation-delay: 6s; font-size: 4rem; }
+        .floating-4 { bottom: 30%; right: 10%; animation-delay: 9s; font-size: 2rem; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
+            75% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(135, 206, 235, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4682B4;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #4682B4;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-link:hover {
+            color: #87CEEB;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #4682B4 0%, #87CEEB 100%);
+            color: white !important;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(70, 130, 180, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(70, 130, 180, 0.4);
+        }
+
+        /* Hero Content */
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #4682B4;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #4682B4 0%, #87CEEB 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(70, 130, 180, 0.3);
+        }
+
+        .cta-secondary {
+            background: white;
+            color: #4682B4;
+            border: 2px solid #87CEEB;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-primary:hover {
+            box-shadow: 0 15px 40px rgba(70, 130, 180, 0.4);
+        }
+
+        .cta-secondary:hover {
+            background: #f8fdff;
+            border-color: #4682B4;
+        }
+
+        .hero-visual {
+            text-align: center;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .hero-image {
+            font-size: 15rem;
+            color: #87CEEB;
+            opacity: 0.8;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(135, 206, 235, 0.3));
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: white;
+            position: relative;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #4682B4;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #4682B4, #87CEEB);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid #87CEEB;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #4682B4;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            color: #4682B4;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Login Modal */
+        .login-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-modal {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            overflow: hidden;
+            width: 90%;
+            max-width: 450px;
+            transform: scale(0.7) translateY(50px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .login-modal-overlay.active .login-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .login-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' fill='white'%3E%3C/path%3E%3C/svg%3E") center/cover no-repeat;
+        }
+
+        .modal-logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            animation: rotateIn 0.8s ease-out;
+        }
+
+        @keyframes rotateIn {
+            from { transform: rotate(-180deg) scale(0); opacity: 0; }
+            to { transform: rotate(0deg) scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .login-body {
+            padding: 2rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4682B4;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #87CEEB;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(135, 206, 235, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #87CEEB;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group:focus-within .input-icon {
+            color: #4682B4;
+            animation: iconPulse 0.6s ease;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.2); }
+        }
+
+        .login-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #4682B4 0%, #87CEEB 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .login-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(70, 130, 180, 0.4);
+        }
+
+        .login-submit:hover::before {
+            left: 100%;
+        }
+
+        .login-submit:active {
+            transform: translateY(-1px);
+        }
+
+        /* Error/Success Messages */
+        .message {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #4682B4 0%, #87CEEB 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 6rem 1rem 2rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                font-size: 8rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .login-modal {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div class="floating-element floating-1">🏥</div>
+    <div class="floating-element floating-2">⚕️</div>
+    <div class="floating-element floating-3">💙</div>
+    <div class="floating-element floating-4">🌟</div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <div class="logo">
+                <span class="logo-icon">🏥</span>
+                Ramya Physio Care
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><button class="login-btn" onclick="openLoginModal()">👤 Admin Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Your Path to Recovery Starts Here</h1>
+                <h2 class="hero-subtitle">Expert Physiotherapy Care</h2>
+                <p class="hero-description">
+                    Professional physiotherapy clinic management system. 
+                    Advanced patient care coordination and administrative tools 
+                    for healthcare professionals and clinic staff.
+                </p>
+                <div class="cta-buttons">
+                    <button class="cta-btn cta-primary" onclick="openLoginModal()">🔐 Staff Access</button>
+                    <a href="#contact" class="cta-btn cta-secondary">📞 Contact Info</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">🏃‍♀️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <h2 class="section-title">Administrative Features</h2>
+            <p class="section-subtitle">Comprehensive clinic management tools for healthcare professionals</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3 class="service-title">Patient Management</h3>
+                    <p class="service-description">
+                        Complete patient record management system with appointment 
+                        tracking, treatment history, and progress monitoring.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Analytics Dashboard</h3>
+                    <p class="service-description">
+                        Real-time statistics and insights into clinic operations, 
+                        patient flow, and treatment outcomes for better decision making.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🗓️</div>
+                    <h3 class="service-title">Appointment Scheduling</h3>
+                    <p class="service-description">
+                        Efficient appointment management system with automated 
+                        reminders and calendar integration for optimal scheduling.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📝</div>
+                    <h3 class="service-title">Treatment Records</h3>
+                    <p class="service-description">
+                        Detailed treatment documentation, progress notes, and 
+                        comprehensive patient history management system.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-title">Clinic Information</div>
+        <p>Professional healthcare management system for authorized staff only</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="contact-icon">📞</span>
+                +91-9876543210
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">✉️</span>
+                info@ramyaphysiocare.com
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                Madurai, Tamil Nadu
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="login-modal-overlay" id="loginModal">
+        <div class="login-modal">
+            <div class="login-header">
+                <button class="close-btn" onclick="closeLoginModal()">✕</button>
+                <div class="modal-logo">🏥</div>
+                <div class="modal-title">Admin Login</div>
+                <div class="modal-subtitle">Access Dashboard</div>
+            </div>
+            <div class="login-body">
+                <div id="errorMessage" class="message error-message">
+                    Invalid credentials. Please try again.
+                </div>
+
+                <div id="successMessage" class="message success-message">
+                    Login successful! Redirecting to dashboard...
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="adminId" class="form-label">Admin ID</label>
+                        <input 
+                            type="text" 
+                            id="adminId" 
+                            class="form-input" 
+                            placeholder="Enter your admin ID"
+                            required
+                        >
+                        <span class="input-icon">👤</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <span class="input-icon">🔒</span>
+                    </div>
+
+                    <button type="submit" class="login-submit" id="loginButton">
+                        Sign In
+                    </button>
+                </form>
+
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <a href="#" onclick="showForgotPassword()" style="color: #4682B4; text-decoration: none; font-size: 0.9rem;">
+                        Forgot your password?
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Login modal functions
+    function openLoginModal() {
+        const modal = document.getElementById('loginModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            document.getElementById('adminId').focus();
+        }, 300);
+    }
+
+    function closeLoginModal() {
+        const modal = document.getElementById('loginModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        document.getElementById('loginForm').reset();
+        hideMessages();
+    }
+
+    document.getElementById('loginModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeLoginModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLoginModal();
+        }
+    });
+
+    // Login form submission (now handled by Flask backend)
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const adminId = document.getElementById('adminId').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const loginButton = document.getElementById('loginButton');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        hideMessages();
+
+        if (!adminId || !password) {
+            showError('Please fill in all fields.');
+            return;
+        }
+
+        loginButton.style.background = 'linear-gradient(135deg, #6c757d, #adb5bd)';
+        loginButton.innerHTML = 'Authenticating...';
+        loginButton.disabled = true;
+
+        fetch('http://127.0.0.1:5001/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ adminId, password })
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Invalid credentials');
+            return response.json();
+        })
+        .then(data => {
+            loginButton.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+            loginButton.innerHTML = '✓ Access Granted';
+            successMessage.style.display = 'block';
+
+            setTimeout(() => {
+                closeLoginModal();
+                window.location.href = 'admin_dashboard.html'; // Replace with your actual admin page
+            }, 1500);
+        })
+        .catch(error => {
+            loginButton.style.background = 'linear-gradient(135deg, #4682B4 0%, #87CEEB 100%)';
+            loginButton.innerHTML = 'Sign In';
+            loginButton.disabled = false;
+            showError('Invalid Admin ID or Password.');
+
+            const form = document.getElementById('loginForm');
+            form.style.animation = 'shake 0.6s ease';
+            setTimeout(() => {
+                form.style.animation = '';
+            }, 600);
+        });
+    });
+
+    function hideMessages() {
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'none';
+    }
+
+    function showError(message) {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+    }
+
+    function showForgotPassword() {
+        alert('Please contact the clinic administrator:\n\nEmail: admin@ramyaphysiocare.com\nPhone: +91-9876543210\n\nFor password reset assistance.');
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add shake animation keyframes
+    const shakeKeyframes = `
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+    `;
+    const style = document.createElement('style');
+    style.textContent = shakeKeyframes;
+    document.head.appendChild(style);
+</script>

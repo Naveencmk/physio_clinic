@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramya Physio Care - Patient Records</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fdff;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation Button */
+        .nav-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #4682B4, #87CEEB);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(70, 130, 180, 0.3);
+        }
+
+        /* Statistics Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid #87CEEB;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4682B4;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Patient Records Table */
+        .records-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #4682B4, #87CEEB);
+            color: white;
+            padding: 1.5rem 2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .records-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .records-table th {
+            background: #E6F3FF;
+            color: #4682B4;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #87CEEB;
+        }
+
+        .records-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+
+        .records-table tr {
+            transition: all 0.3s ease;
+        }
+
+        .records-table tr:hover {
+            background: #f8fdff;
+            transform: scale(1.01);
+        }
+
+        .patient-name {
+            font-weight: 600;
+            color: #4682B4;
+        }
+
+        .service-tag {
+            background: linear-gradient(135deg, #87CEEB, #B8E0FF);
+            color: #4682B4;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .description-text {
+            max-width: 300px;
+            word-wrap: break-word;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .date-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Status indicators */
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-treated {
+            background: #28a745;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Search Bar */
+        .search-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #87CEEB;
+            border-radius: 25px;
+            font-size: 1rem;
+            width: 300px;
+            max-width: 100%;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #4682B4;
+            box-shadow: 0 0 15px rgba(70, 130, 180, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .records-table th,
+            .records-table td {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .description-text {
+                max-width: 200px;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="main-title">RAMYA Physio Care</h1>
+        <p class="subtitle">Patient Records Management System</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Navigation -->
+        <div class="nav-container">
+            <a href="admin.html" class="nav-button">← Back to Dashboard</a>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPatients">0</div>
+                <div class="stat-label">Total Patients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="treatmentsCompleted">0</div>
+                <div class="stat-label">Treatments Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="servicesOffered">0</div>
+                <div class="stat-label">Services Offered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="monthlyTreatments">0</div>
+                <div class="stat-label">This Month</div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input 
+                type="text" 
+                class="search-input" 
+                placeholder="🔍 Search patients by name, phone, or service..."
+                id="searchInput"
+                onkeyup="filterPatients()"
+            >
+        </div>
+
+        <!-- Patient Records Table -->
+        <div class="records-section">
+            <div class="section-header">
+                👥 Patient Treatment Records
+            </div>
+            <div class="table-container">
+                <table class="records-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Patient Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Service Received</th>
+                            <th>Treatment Notes</th>
+                            <th>Date Treated</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recordsTableBody">
+                        <!-- Patient records will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📋</div>
+                <h3>No Patient Records Found</h3>
+                <p>No patient treatment records are available at this time.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    let patientRecords = [];
+    let filteredRecords = [];
+
+    // Fetch patient records from Flask backend
+    function fetchPatientRecordsFromServer() {
+        fetch('http://127.0.0.1:5001/api/treated-patients')
+            .then(response => response.json())
+            .then(data => {
+                // Convert treated_at to dateTreated for compatibility
+                patientRecords = data.map(record => ({
+                    id: record.id,
+                    name: record.name,
+                    phone: record.phone,
+                    email: record.email,
+                    service: record.service,
+                    message: record.message,
+                    dateTreated: record.treated_at
+                }));
+                filteredRecords = [...patientRecords];
+                renderPatientRecords();
+                updateStatistics();
+            })
+            .catch(error => {
+                console.error('Error fetching patient records:', error);
+                document.getElementById('emptyState').style.display = 'block';
+            });
+    }
+
+    // Update statistics
+    function updateStatistics() {
+        const total = filteredRecords.length;
+        const services = [...new Set(filteredRecords.map(record => record.service))].length;
+
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+        const monthlyTreatments = filteredRecords.filter(record => {
+            const recordDate = new Date(record.dateTreated);
+            return recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear;
+        }).length;
+
+        document.getElementById('totalPatients').textContent = total;
+        document.getElementById('treatmentsCompleted').textContent = total;
+        document.getElementById('servicesOffered').textContent = services;
+        document.getElementById('monthlyTreatments').textContent = monthlyTreatments;
+    }
+
+    // Render patient records table
+    function renderPatientRecords() {
+        const tableBody = document.getElementById('recordsTableBody');
+        const emptyState = document.getElementById('emptyState');
+
+        if (filteredRecords.length === 0) {
+            tableBody.innerHTML = '';
+            emptyState.style.display = 'block';
+            return;
+        }
+
+        emptyState.style.display = 'none';
+
+        tableBody.innerHTML = filteredRecords.map(record => `
+            <tr data-id="${record.id}">
+                <td>
+                    <span class="status-indicator status-treated"></span>
+                    Treated
+                </td>
+                <td class="patient-name">${record.name}</td>
+                <td>${record.phone}</td>
+                <td>${record.email}</td>
+                <td><span class="service-tag">${record.service}</span></td>
+                <td><div class="description-text">${record.message}</div></td>
+                <td class="date-text">${formatDate(record.dateTreated)}</td>
+            </tr>
+        `).join('');
+    }
+
+    // Format date for display
+    function formatDate(dateString) {
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        };
+        return new Date(dateString).toLocaleDateString('en-IN', options);
+    }
+
+    // Filter patients based on search input
+    function filterPatients() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+        filteredRecords = patientRecords.filter(record => 
+            record.name.toLowerCase().includes(searchTerm) ||
+            record.phone.includes(searchTerm) ||
+            record.email.toLowerCase().includes(searchTerm) ||
+            record.service.toLowerCase().includes(searchTerm)
+        );
+
+        renderPatientRecords();
+        updateStatistics();
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchPatientRecordsFromServer();
+    });
+</script>
+
+</body>
+</html>
